@@ -1,0 +1,23 @@
+name: Package SFW Client
+
+on:
+  workflow_dispatch:
+
+jobs:
+  package-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Zip the file
+      run: zip sfw-client.zip cache.db config.json SFW.bat sing-box.exe sub.txt ui/*
+
+    - name: Commit and push the packaged file
+      uses: EndBug/add-and-commit@v7
+      with:
+        add: 'cf-wkrs-pages-vless.zip'
+        message: 'Automatically package and commit'
+        author_name: GitHub Actions
+        author_email: actions@github.com
+        token: ${{ secrets.GITHUB_TOKEN }}
