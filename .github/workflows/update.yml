@@ -1,6 +1,8 @@
 name: Update Sing-box Core
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
 jobs:
   check-and-commit:
     runs-on: ubuntu-latest

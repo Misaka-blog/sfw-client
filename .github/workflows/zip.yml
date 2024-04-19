@@ -1,7 +1,8 @@
 name: Package SFW Client
 on:
   workflow_dispatch:
-
+  schedule:
+    - cron: '0 0 * * *'
 jobs:
   package-and-commit:
     runs-on: ubuntu-latest
