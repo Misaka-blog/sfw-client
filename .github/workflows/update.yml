@@ -1,0 +1,35 @@
+name: Package SFW Client
+
+on:
+  workflow_dispatch:
+
+jobs:
+  package-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Check Sing-box version
+        run: |
+          chmod +x sing-box
+
+          local_version=v$(./sing-box version | sed -n 1p | awk -F ' ' '{print $3}')
+          remote_version=$(curl -Ls "https://api.github.com/repos/SagerNet/sing-box/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+          remote_file_version=$(curl -Ls "https://api.github.com/repos/SagerNet/sing-box/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed "s/v//g")
+
+          if [ "$local_version" != "$remote_version" ]; then
+            wget -N https://github.com/SagerNet/sing-box/releases/download/${remote_version}/sing-box-${remote_file_version}-linux-amd64.tar.gz
+            wget -N https://github.com/SagerNet/sing-box/releases/download/${remote_version}/sing-box-${remote_file_version}-windows-amd64.zip
+          fi
+
+          rm -f fetch.log
+          echo "Fetch Date: $(date)" > fetch.log
+
+      - name: Upload to GitHub
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          git commit -m "CI: Auto fetch sing-box at $(date +"%m-%d %H:%M")"
+          git push
