@@ -1,5 +1,4 @@
 name: Package SFW Client
-
 on:
   workflow_dispatch:
 
@@ -9,15 +8,15 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Zip the file
-        run: zip sfw-client.zip cache.db config.json SFW.bat sing-box.exe sub.txt ui/* ui/assets/*
-
+        run: |
+          zip sfw-client.zip cache.db config.json SFW.bat sing-box.exe sub.txt
+          ui/* ui/assets/*
       - name: Commit and push the packaged file
         uses: EndBug/add-and-commit@v7
         with:
-          add: 'sfw-client.zip'
-          message: 'Automatically package and commit'
+          add: sfw-client.zip
+          message: Automatically package and commit
           author_name: GitHub Actions
           author_email: actions@github.com
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: '${{ secrets.GITHUB_TOKEN }}'
