@@ -1,4 +1,4 @@
-name: Package SFW Client
+name: Update Sing-box Core
 
 on:
   workflow_dispatch:
