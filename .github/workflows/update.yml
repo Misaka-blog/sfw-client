@@ -2,7 +2,7 @@ name: Update Sing-box Core
 on:
   workflow_dispatch:
 jobs:
-  package-and-commit:
+  check-and-commit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
