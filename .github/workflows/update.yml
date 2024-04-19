@@ -17,16 +17,18 @@ jobs:
           remote_file_version=$(curl -Ls "https://api.github.com/repos/SagerNet/sing-box/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed "s/v//g")
 
           if [ "$local_version" != "$remote_version" ]; then
-            rm -f sing-box sing-box.exe
+            rm -f ./sing-box ./sing-box.exe
 
             wget -N https://github.com/SagerNet/sing-box/releases/download/${remote_version}/sing-box-${remote_file_version}-linux-amd64.tar.gz
             wget -N https://github.com/SagerNet/sing-box/releases/download/${remote_version}/sing-box-${remote_file_version}-windows-amd64.zip
 
             tar -zxvf sing-box-${remote_file_version}-linux-amd64.tar.gz
-            mv sing-box-${remote_file_version}-linux-amd64/sing-box ./sing-box
+            mv ./sing-box-${remote_file_version}-linux-amd64/sing-box ./sing-box
 
             unzip sing-box-${remote_file_version}-windows-amd64.zip
-            mv sing-box-${remote_file_version}-windows-amd64/sing-box.exe ./sing-box.exe
+            mv ./sing-box-${remote_file_version}-windows-amd64/sing-box.exe ./sing-box.exe
+
+            rm -rf sing-box-${remote_file_version}-windows-amd64.zip sing-box-${remote_file_version}-linux-amd64.tar.gz sing-box-${remote_file_version}-windows-amd64 sing-box-${remote_file_version}-linux-amd64
           fi
 
           rm -f fetch.log
