@@ -1,10 +1,12 @@
 %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a  
 cls 
+%%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a %%a  
+cls 
 @echo off
 chcp 65001 > nul
 setlocal enabledelayedexpansion
 echo.
-echo  SFW 网页客户端
+echo SFW 网页客户端
 echo.
 timeout /t 2 > nul
 set "inputFile=sub.txt"
@@ -12,8 +14,8 @@ set "outputFile=config.json"
 set "firstLine="
 set /P firstLine=<"%inputFile%"
 if not defined firstLine (
-    echo 当前订阅文件sub.txt 第一行为空或者无内容，直接使用自定义config.json配置
-    timeout /t 3 > nul
+    echo 当前订阅文件 sub.txt 第一行为空或者无内容，直接使用自定义 config.json 配置
+    timeout /t 5 > nul
 ) else (
     echo. >%outputFile%
     set "lastHttpsUrl="
@@ -26,7 +28,7 @@ if not defined firstLine (
         )
     )
     if defined lastHttpsUrl (
-        echo 下载最后一行订阅链接地址: !lastHttpsUrl!
+        echo 下载订阅文件 sub.txt 第一行订阅链接地址: !lastHttpsUrl!
         powershell.exe -Command "Invoke-WebRequest -Uri '!lastHttpsUrl!' -OutFile 'config.json' >$null"
         cls
         echo 下载完成，配置保存到 config.json 
@@ -40,7 +42,7 @@ if not defined firstLine (
 )
 for /f %%a in ('type "config.json" ^| find /v /c ""') do set "fileSize=%%a"
 if %fileSize% leq 0 (
-    echo config.json文件为空，脚本退出
+    echo config.json 文件为空，脚本退出
     timeout /t 3 > nul
     exit /b 0
 )
