@@ -5,6 +5,7 @@
 ## 使用教程
 
 - 博客教程：https://blog.misaka.cyou/2024/04/21/sfw-bat-client/
+- 视频教程：https://www.youtube.com/watch?v=g04DTy9aNSY
 
 ## 鸣谢项目
 
