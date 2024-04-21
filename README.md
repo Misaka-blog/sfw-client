@@ -4,7 +4,7 @@
 
 ## 使用教程
 
-待更新
+- 博客教程：https://blog.misaka.cyou/2024/04/21/sfw-bat-client/
 
 ## 鸣谢项目
 
